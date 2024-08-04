@@ -1,0 +1,2 @@
+# StrukDat
+Semester 2
