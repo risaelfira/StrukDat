@@ -1,23 +1,50 @@
 #include <iostream>
+#include <queue>
+#include <string>
+
 using namespace std;
 
-/* struct : data yang dibentuk oleh beberapa data */
-struct buah{
-    string nama;
-    string warna;
-    float berat; 
-    int harga;
-    string rasa;
+// Fungsi untuk menambahkan wisudawan ke antrian
+void tambahWisudawan(queue<string>& wisudawanQueue, const string& namaWisudawan) {
+    wisudawanQueue.push(namaWisudawan);
+    cout << "Wisudawan " << namaWisudawan << " telah ditambahkan ke antrian." << endl;
+}
 
-    // pointer untuk menghubungkan node
-    buah *next;
-}; buah *head, *tail, *nodeSekarang, *nodeBaru, *temporaryNode;
+// Fungsi untuk memanggil wisudawan dari antrian
+void panggilWisudawan(queue<string>& wisudawanQueue) {
+    if (!wisudawanQueue.empty()) {
+        string namaWisudawan = wisudawanQueue.front();
+        wisudawanQueue.pop();
+        cout << "Memanggil wisudawan: " << namaWisudawan << endl;
+    } else {
+        cout << "Tidak ada wisudawan dalam antrian." << endl;
+    }
+}
 
+// Simulasi proses pemindaian undangan dan pemanggilan wisudawan
+void prosesPemanggilanWisudawan(const vector<string>& listWisudawan) {
+    // Membuat antrian kosong
+    queue<string> wisudawanQueue;
+    
+    // Menambahkan wisudawan ke antrian sesuai urutan pemindaian
+    for (const string& nama : listWisudawan) {
+        tambahWisudawan(wisudawanQueue, nama);
+    }
+    
+    cout << "\nProses pemanggilan wisudawan dimulai...\n" << endl;
+    
+    // Memanggil wisudawan sesuai urutan dalam antrian
+    while (!wisudawanQueue.empty()) {
+        panggilWisudawan(wisudawanQueue);
+    }
+}
 
-/*
- *  Fungsi Utama
- */
-int main(){ 
+int main() {
+    // Daftar wisudawan yang di-scan undangannya
+    vector<string> daftarWisudawan = {"Andi", "Budi", "Cici", "Dodi", "Eka"};
+    
+    // Menjalankan simulasi pemanggilan wisudawan
+    prosesPemanggilanWisudawan(daftarWisudawan);
     
     return 0;
-} // akhir int main
+}
